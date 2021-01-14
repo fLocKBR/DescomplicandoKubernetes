@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: giropops
+  name: giropops3
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: giropops
+  template:
+    metadata:
+      labels:
+        app: giropops
+        dc: UK
+    spec:
+      containers:
+      - image: nginx
+        imagePullPolicy: Always
+        name: nginx
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      nodeSelector:
+        disk: SSD
